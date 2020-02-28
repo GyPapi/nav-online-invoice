@@ -12,6 +12,12 @@ __Letöltés:__
 
 NAV Online számla oldala: [onlineszamla.nav.gov.hu](https://onlineszamla.nav.gov.hu/)
 
+## :mega: 2.0-ás API támogatás
+
+Amennyiben a NAV 2.0-ás API-jára meg szeretnéd kezdeni az átállást, kérlek, használd ezen modul [2.0.0-ás RC/pre-release](https://github.com/pzs/nav-online-invoice/releases) verzióját. Frissített leírást és példafájlokat megtalálod a [2.0-ás branch](https://github.com/pzs/nav-online-invoice/tree/2.0) alatt, illetve [packagist](https://packagist.org/packages/pzs/nav-online-invoice)-ről is letölthető a `v2.0.0-RC1` verzió.
+
+:information_source: Az itt következő lenti leírás az 1.1-es modulhoz tartozik.
+
 
 ## Használat
 
@@ -221,6 +227,8 @@ Ezen az osztályon érhetjük el a NAV interfészén biztosított szolgáltatás
 
 - `__construct(Config $config)`
 - `manageInvoice($invoiceOperationsOrXml [, $operation])`: A számla beküldésére szolgáló operáció. Visszatérési értékként a `transactionId`-t adja vissza string-ként. Paraméterben át lehet adni vagy egy darab `SimpleXMLElement` példányt, ami a számlát tartalmazza, vagy egy `InvoiceOperations` példányt, ami több számlát is tartalmazhat. A `technicalAnnulment` flag értéke automatikusan felismert és beállításra kerül az `operation` értékéből. Lásd a példa fájlokat.
+    - `SimpleXMLElement` példány (egy számla) átadása esetén a 2., `$operation` paraméterben át kell adnunk a műveletet (lásd `OperationType`-ot a NAV leírásban), mely értékei a következők lehetnek: `"CREATE"` (alapértelmezett), `"MODIFY"`, `"STORNO"`, `"ANNUL"`.
+    - `InvoiceOperations` példány esetén maga az átadott példány tartalmazza már a műveletet.
 - `queryInvoiceData(string $queryType, array $queryData [, int $page = 1])`: A számla adatszolgáltatások lekérdezésére szolgáló operáció, visszatérési értéke a visszakapott XML `queryResults` része (`SimpleXMLElement` példány)
 - `queryInvoiceStatus(string $transactionId [, $returnOriginalRequest = false])`: A számla adatszolgáltatás feldolgozás aktuális állapotának és eredményének lekérdezésére szolgáló operáció
 - `queryTaxpayer(string $taxNumber)`: Belföldi adószám validáló és címadat lekérdező operáció. Visszatérési éréke lehet `null` nem létező adószám esetén, `false` érvénytelen adószám esetén, vagy TaxpayerDataType XML elem név és címadatokkal valid adószám esetén
