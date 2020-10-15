@@ -103,13 +103,24 @@ class Reporter {
      * oldaláról is használható. Az operáció a megadott számlaszám teljes adattartalmát adja vissza a válaszban.
      *
      * @param  array             $invoiceNumberQuery     Az invoiceNumberQuery-nek megfelelően összeállított lekérdezési adatok
-     * @return \SimpleXMLElement  $invoiceDataResultXml A válasz XML invoiceDataResult része
+     * @param  boolean           [$returnDecodedInvoiceData = false]  invoiceDataResult helyett a dekódolt számla XML-t adja vissza a metódus
+     * @return \SimpleXMLElement  $invoiceDataResultXml A válasz XML invoiceDataResult része vagy a dekódolt számla XML
      */
-    public function queryInvoiceData($invoiceNumberQuery) {
+    public function queryInvoiceData($invoiceNumberQuery, $returnDecodedInvoiceData = false) {
         $requestXml = new QueryInvoiceDataRequestXml($this->config, $invoiceNumberQuery);
         $responseXml = $this->connector->post("/queryInvoiceData", $requestXml);
 
-        return $responseXml->invoiceDataResult;
+        $result = $responseXml->invoiceDataResult;
+
+        if ($returnDecodedInvoiceData) {
+            if (empty($result->invoiceData)) {
+                return null;
+            }
+            $isCompressed = $result->compressedContentIndicator;
+            return InvoiceOperations::convertToXml($result->invoiceData, $isCompressed);
+        }
+
+        return $result;
     }
 
 
@@ -213,7 +224,7 @@ class Reporter {
         }
 
         // taxpayerValidity értéke lehet false is, ha az adószám létezik, de nem érvényes
-        if (empty($responseXml->taxpayerValidity) or $responseXml->taxpayerValidity === "false") {
+        if (empty($responseXml->taxpayerValidity) or (string)($responseXml->taxpayerValidity) === "false") {
             return false;
         }
 
