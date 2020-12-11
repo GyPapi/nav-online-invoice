@@ -6,7 +6,9 @@ _PHP interfész a NAV Online számla adatszolgáltatásához_
 
 __Letöltés:__
 - Composer: [packagist.org/packages/pzs/nav-online-invoice](https://packagist.org/packages/pzs/nav-online-invoice)
-- Legfrissebb verzió: [github.com/pzs/nav-online-invoice/releases/latest](https://github.com/pzs/nav-online-invoice/releases/latest)
+- Legfrissebb verziók:
+    - 3.0-ás API: [v3.0.0-RC1](https://github.com/pzs/nav-online-invoice/releases/tag/v3.0.0-RC1)
+    - 2.0-ás API: [v2.0.6](https://github.com/pzs/nav-online-invoice/releases/tag/v2.0.6)
 - Korábbi verziók: [github.com/pzs/nav-online-invoice/releases](https://github.com/pzs/nav-online-invoice/releases)
 - Példa fájlok: [github.com/pzs/nav-online-invoice/tree/master/examples](https://github.com/pzs/nav-online-invoice/tree/master/examples)
 
@@ -14,7 +16,7 @@ NAV Online számla oldala: [onlineszamla.nav.gov.hu](https://onlineszamla.nav.go
 
 ## :fire: v3.0-ás API támogatás :fire:
 
-A modul ezen verziója a NAV v3.0-ás API-ját támogatja. v2.0-ás API támogatáshoz használd a korábbi, [v2.0.4](https://github.com/pzs/nav-online-invoice/tree/v2.0.4) verziót.
+A modul ezen verziója a NAV v3.0-ás API-ját támogatja. v2.0-ás API támogatáshoz használd a korábbi, [v2.x](https://github.com/pzs/nav-online-invoice/tree/2.x) verziót.
 
 ## :information_source: Frissítés v3.0-ás API-ra
 
@@ -451,6 +453,12 @@ Szükséges modulok:
 ## TODO
 
 - További tesztek írása, ami a NAV szerverét is meghívja teszt közben
+
+
+## További modulok NAV API-hoz
+
+- NodeJS: https://github.com/angro-kft/nav-connector
+- Scala (JVM): https://github.com/enlivensystems/invoicing-hungarian
 
 
 ## License
